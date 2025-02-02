@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Tracker</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <main>
+    <h1>Money Tracker</h1>
+    <form action="/" method="POST">
+      <input type="text" name="description" placeholder="Description" required>
+      <input type="number" name="amount" placeholder="Amount" required>
+      <select name="type" required>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+      <button type="submit">Add</button>
+    </form>
+
+    <ul>
+      <% transactions.forEach(transaction => { %>
+        <li id="transaction-<%= transaction._id %>" class="<%= transaction.type %>">
+          <span><%= transaction.description %></span>
+          <span>$<%= transaction.amount %></span>
+          <button onclick="deleteTransaction('<%= transaction._id %>')">Delete</button>
+        </li>
+      <% }) %>
+    </ul>
+  </main>
+
+  <%- include('partials/footer') %>
+
+  <script src="/js/script.js"></script>
+</body>
+</html>
